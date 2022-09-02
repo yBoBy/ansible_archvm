@@ -4,5 +4,5 @@ Cancel changes
 
 Quck Start:
 ```bash
-curl -s https://raw.githubusercontent.com/yBoBy/ansible_archvm/main/install.sh | bash
+bash <(curl -s https://raw.githubusercontent.com/yBoBy/ansible_archvm/main/install.sh)
 ```
