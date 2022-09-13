@@ -1,0 +1,36 @@
+- hosts: debianservers
+  #become: yes
+  #become_method: sudo
+  tasks:
+    - name: install curl package
+      apt:
+        pkg: "{{ item.name }}"
+        state: present
+      with_items:
+      - { name: 'curl' }
+
+    - name: Ensure that the path exist
+      file: path=/etc/profile.d/ state=directory
+
+    - name: deploy alert script
+      copy:
+        src: /home/cpt/repos/ansible_archvm/resource/alert.sh
+        dest: /etc/profile.d/alert.sh
+        owner: root
+        group: root
+        mode: 0655
+
+    - name: deploy secret .env file
+      copy:
+        src: /home/cpt/repos/ansible_archvm/resource/.env
+        dest: /etc/profile.d/.env
+        owner: root
+        group: root
+        mode: 0544
+    
+    - name: insert call to zshrc
+      lineinfile:
+        path: /etc/zsh/zshrc
+        line: /etc/profile.d/alert.sh
+        state: present
+      when: ansible_user_shell == '/usr/bin/zsh'

@@ -1,0 +1,7 @@
+[debianservers]
+wireguard
+server
+berry
+
+[archlinux]
+laptop
